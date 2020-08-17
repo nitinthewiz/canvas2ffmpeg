@@ -28,7 +28,8 @@ var init = function(canvas) {
  */
 var draw = function(canvas) {
 	// Get the canvas context to draw on
-	var ctx = canvas.getContext('2d');
+	var ctx = canvas.getContext('2d', { alpha: true });
+	// ctx.globalAlpha = 0.0;
 
 	if (frame > frameCount) {
 		// End of animation
@@ -38,7 +39,20 @@ var draw = function(canvas) {
 	// Drawing begins, clear canvas first
 	ctx.clearRect(0, 0, cx, cy);
 	ctx.fillStyle = "#fff";
-	ctx.fillRect(0,0,cx,cy);
+	// opaque background
+	// ctx.fillRect(0,0,cx,cy);
+	// ctx.fillRect(0,0,cx,cy/2);
+
+	// let f = new FontFace('Montserrat', 'url(https://fonts.googleapis.com/css?family=Montserrat:400,700)');
+
+	// f.load().then(function() {
+		// Ready to use the font in a canvas context
+	// });
+
+	ctx.font = 'bold 200px Montserrat';
+	let text = ctx.measureText('Say What Now?');
+	ctx.strokeText("Say What Now?", cx/2-text.width/2, cy/2);
+	ctx.fillText("Say What Now?", cx/2-text.width/2, cy/2);
 
 	// TODO: insert drawing code here...
 	ctx.strokeStyle = '#6cf';

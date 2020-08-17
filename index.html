@@ -3,6 +3,10 @@
 <head>
 	<meta charset="utf-8" />
 	<title>Canvas 2 FFMPEG</title>
+	<link
+      href="https://fonts.googleapis.com/css?family=Montserrat"
+      rel="stylesheet"
+    />
 </head>
 <body>
 <canvas width="1920" height="1080" style="background-color: black"></canvas>
@@ -10,15 +14,15 @@
 <label>FFMPEG args: </label><input type='text' id='ff_args' style="width: 70em" placeholder="Arguments" /><br />
 <label>FFMPEG params: </label>
 <input type='number' value='30' id='ff_framerate' style="width:20em" placeholder="FPS" />
-<input type='text' value='libx264' id='ff_vcodec' style="width:20em" placeholder="Video Codec" />
-<input type='text' value='output.mp4' id='ff_output' style="width:20em" placeholder="Output filename" />
+<input type='text' value='prores_ks -pix_fmt yuva444p10le' id='ff_vcodec' style="width:20em" placeholder="Video Codec" />
+<input type='text' value='output.mov' id='ff_output' style="width:20em" placeholder="Output filename" />
 <script type="text/javascript">
 function updateArgs() {
 	// Generate ffmpeg args
 	var	framerate = document.querySelector("#ff_framerate").value,
 		vcodec = document.querySelector("#ff_vcodec").value,
 		output = document.querySelector("#ff_output").value,
-		args = "-f image2pipe -r "+framerate+" -i - -vcodec "+vcodec+" "+output;
+		args = "-f image2pipe -r "+framerate+" -i - -vcodec "+vcodec+" -y "+output;
 	document.querySelector("#ff_args").value = args;
 	// Save preferences to localStorage if possible
 	if (window.localStorage) {
@@ -47,6 +51,17 @@ if (window.localStorage && localStorage.args) {
 </div>
 <script type="text/javascript" src="drawing.js"></script>
 <script type="text/javascript">
+var divContainer = document.createElement('div');
+document.body.appendChild(divContainer);
+divContainer.style.position="absolute";
+divContainer.style.left="30px";
+divContainer.style.top="30px";
+divContainer.style.width="200px";
+divContainer.style.height="200px";
+divContainer.innerHTML = "automedia rocks!";
+divContainer.style.color = "blue";
+divContainer.style.zIndex="1000";
+
 var canvas = document.querySelector("canvas");
 var saveToFile = true; // Whether canvas data should be sent to pipe server
 var animating = false; // the 'lock'
